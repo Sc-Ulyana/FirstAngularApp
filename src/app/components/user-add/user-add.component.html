@@ -1,0 +1,47 @@
+<form>
+  <h1>Add user</h1>
+  <div class="p-float-label">
+    <input id="login" type="text" pInputText>
+    <label for="login">Login</label>
+  </div>
+  <div class="p-float-label">
+    <p-password id="pass"  inputStyleClass="style"></p-password>
+    <label for="pass">Password</label>
+  </div>
+  <div class="p-float-label">
+    <input id="email" type="text" pInputText>
+    <label for="email">Email</label>
+  </div>
+  <div class="p-float-label">
+    <p-inputNumber id="salary" inputStyleClass="style" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+    <label for="salary">Salary</label>
+  </div>
+  <div class="p-float-label">
+    <p-calendar id="dob" [minDate]="minDate" [maxDate]="maxDate" inputStyleClass="style" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" dateFormat="mm-dd-yy"></p-calendar>
+    <label for="dob">Date of birth</label>
+  </div>
+  <div>
+    <p>
+      <p-checkbox id="admin" name="roles" value="ROLE_ADMIN"></p-checkbox>
+      <label for="admin">ROLE_ADMIN</label>
+    </p>
+    <p>
+      <p-checkbox id="user" name="roles" value="ROLE_USER"></p-checkbox>
+      <label for="user">ROLE_USER</label>
+    </p>
+    <p>
+      <p-checkbox id="developer" name="roles" value="ROLE_DEVELOPER"></p-checkbox>
+      <label for="developer">ROLE_DEVELOPER</label>
+    </p>
+    <p>
+      <p-checkbox id='manager' name="roles" value="ROLE_MANAGER"></p-checkbox>
+      <label for="manager">ROLE_MANAGER</label>
+    </p>
+    <p>
+      <p-checkbox id="trainee" name="roles" value="ROLE_TRAINEE"></p-checkbox>
+      <label for="trainee">ROLE_TRAINEE</label>
+    </p>
+  </div>
+  <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Add"
+          class="p-button-lg p-button-rounded p-button-success" routerLink="/users" ></button>
+</form>

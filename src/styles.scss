@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+@import url("../node_modules/primeicons/primeicons.css");
+@import url("../node_modules/primeng/resources/themes/saga-orange/theme.css");
+@import url("../node_modules/primeng/resources/primeng.min.css");
+
+html{
+  background-color: #fffdfd;
+  font-family: "Courier New",monospace;
+}
+a{
+  text-decoration: none;
+  color: #078d07;
+  a:visited{
+    color: #078d07;
+  }
+}
+form{
+  background-color: #ffffff;
+  position: fixed;
+  top: 30%;
+  left: 38%;
+  width: 500px;
+  padding: 48px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px #ccc;
+}
+h1{
+  color: #078d07;
+  text-align: center;
+  font-size: 40px;
+}
+input.style{
+  width: 405px;
+  border-radius: 30px;
+  padding-bottom: 15px;
+  font-size: 20px;
+  padding-left: 15px;
+
+}
+.header{
+  text-align: center;
+  color: #078d07;
+  font-size: 50px;
+  font-family: "Courier New",monospace;
+  letter-spacing: 1px;
+  font-weight: bolder;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: #078d07;
+  height: 60px;
+  line-height: 60px;
+  font-weight: bold;
+}

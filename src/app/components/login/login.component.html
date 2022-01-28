@@ -1,0 +1,13 @@
+<form>
+  <h1>Log In</h1>
+  <div class="p-float-label">
+    <input id="login" type="text" pInputText>
+    <label for="login">Login</label>
+  </div>
+  <div class="p-float-label">
+    <p-password id="password" inputStyleClass="style" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" name="password"></p-password>
+    <label for="password">Password</label>
+  </div>
+  <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Sign in"
+                                   class="p-button-rounded p-button-success"  routerLink="/welcome"></button>
+</form>
