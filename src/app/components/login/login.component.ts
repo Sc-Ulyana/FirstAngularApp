@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -7,7 +8,13 @@ import {Title} from "@angular/platform-browser";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  login: string;
   password: string;
+  showPassword: boolean;
+  form: any = {
+    login: null,
+    password: null
+  }
 
   constructor(private titleService: Title) {
     this.titleService.setTitle("Log In")
@@ -16,4 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit() {
+    const {login, password} = this.form;
+  }
 }

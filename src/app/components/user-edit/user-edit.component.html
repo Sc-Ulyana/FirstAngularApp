@@ -1,48 +1,86 @@
-<form *ngIf="user">
+<app-header></app-header>
+<form #addUserForm="ngForm" novalidate *ngIf="user">
   <h1>Edit user {{user.login}}</h1>
-  <div class="p-float-label">
-    <input id="login" type="text" pInputText [(ngModel)]="user.login" name="login">
-    <label for="login">Login</label>
-  </div>
-  <div class="p-float-label">
-    <p-password id="pass" inputStyleClass="style" [toggleMask]="true" [(ngModel)]="user.password" name="password"></p-password>
-    <label for="pass">Password</label>
-  </div>
-  <div class="p-float-label">
-    <input id="email" type="text" pInputText [(ngModel)]="user.email" name="email">
-    <label for="email">Email</label>
-  </div>
-  <div class="p-float-label">
-    <p-inputNumber inputStyleClass="style" id="salary" mode="currency" currency="USD" locale="en-US" [(ngModel)]="user.salary" name="salary"></p-inputNumber>
-    <label for="salary">Salary</label>
-  </div>
-  <div class="p-float-label">
-    <p-calendar [minDate]="minDate" [maxDate]="maxDate" inputStyleClass="style" [style]="{'width':'100%'}"
-                [inputStyle]="{'width':'100%'}" id="dob" dateFormat="mm-dd-yy" inputId="dateformat" [(ngModel)]="user.date" name="date"></p-calendar>
-    <label for="dob">Date of birth</label>
+  <div>
+    <div class="p-float-label">
+      <input #name="ngModel" id="name" type="text" pInputText [(ngModel)]="user.name" name="name" required>
+      <label for="name">Name</label>
+    </div>
+    <div class="input-invalid" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <small *ngIf="name.errors?.required" class="p-error block error-text">Name is required</small>
+    </div>
   </div>
   <div>
-    <p>
-      <p-checkbox id="admin" name="roles" value="ROLE_ADMIN" [(ngModel)]="user.roles"></p-checkbox>
-      <label for="admin">ROLE_ADMIN</label>
-    </p>
-    <p>
-      <p-checkbox id="user" name="roles" value="ROLE_USER" [(ngModel)]="user.roles"></p-checkbox>
-      <label for="user">ROLE_USER</label>
-    </p>
-    <p>
-      <p-checkbox id="developer" name="roles" value="ROLE_DEVELOPER" [(ngModel)]="user.roles"></p-checkbox>
-      <label for="developer">ROLE_DEVELOPER</label>
-    </p>
-    <p>
-      <p-checkbox id='manager' name="roles" value="ROLE_MANAGER" [(ngModel)]="user.roles"></p-checkbox>
-      <label for="manager">ROLE_MANAGER</label>
-    </p>
-    <p>
-      <p-checkbox id="trainee" name="roles" value="ROLE_TRAINEE" [(ngModel)]="user.roles"></p-checkbox>
-      <label for="trainee">ROLE_TRAINEE</label>
-    </p>
+    <div class="p-float-label">
+      <input #login="ngModel" id="login" type="text" pInputText [(ngModel)]="user.login" name="login" required>
+      <label for="login">Login</label>
+    </div>
+    <div class="input-invalid" *ngIf="login.invalid && (login.dirty || login.touched)">
+      <small *ngIf="login.errors?.required" class="p-error error-text ng-invalid ng-dirty">Login is required</small>
+      <small *ngIf="login.errors?.minlength" class="p-error error-text"> Name must be at least 6 characters
+        long.</small>
+    </div>
+  </div>
+  <div>
+    <div class="p-float-label">
+      <input #password="ngModel" id="password" pInputText pPassword [(ngModel)]="user.password"
+             name="password"  [type]="showPassword ? 'text' : 'password'" required>
+      <label for="password">Password</label>
+      <i class="pi pi-eye-slash icon"
+         (click)="showPassword = !showPassword"
+         [class.hide]="showPassword"></i>
+      <i class="pi pi-eye icon"
+         (click)="showPassword = !showPassword"
+         [class.hide]="!showPassword"></i>
+    </div>
+    <div class="input-invalid" *ngIf="password.invalid && (password.dirty || password.touched)">
+      <small *ngIf="password.errors?.required" class="p-error error-text">Password is required</small>
+    </div>
+  </div>
+  <div>
+    <div class="p-float-label">
+      <input #email="ngModel" id="email" type="text" pInputText [(ngModel)]="user.email" name="email" required>
+      <label for="email">Email</label>
+    </div>
+    <div class="input-invalid" *ngIf="email.invalid && (email.dirty || email.touched)">
+      <small *ngIf="email.errors?.required" class="p-error error-text">Email is required</small>
+    </div>
+  </div>
+  <div>
+    <div class="p-float-label">
+      <p-inputNumber #salary="ngModel" inputStyleClass="style" id="salary" mode="currency" currency="USD" locale="en-US"
+                     [(ngModel)]="user.salary" name="salary" [required]="true"></p-inputNumber>
+      <label for="salary">Salary</label>
+    </div>
+    <div class="input-invalid" *ngIf="salary.invalid && (salary.dirty || salary.touched)">
+      <small *ngIf="salary.errors?.required" class="p-error error-text">Salary is required</small>
+    </div>
+  </div>
+  <div>
+    <div class="p-float-label ">
+      <p-calendar #date="ngModel" [minDate]="minDate" [maxDate]="maxDate" inputStyleClass="style"
+                  [style]="{'width':'100%'}"
+                  id="dob" dateFormat="mm-dd-yy" inputId="dateformat" [(ngModel)]="user.date" name="date"
+                  [required]="true"></p-calendar>
+      <label for="dob">Date of birth</label>
+    </div>
+    <div class="input-invalid" *ngIf="date.invalid && (date.dirty || date.touched)">
+      <small *ngIf="date.errors?.required" class="p-error error-text">Date is required</small>
+    </div>
+  </div>
+  <div *ngFor="let role of allRoles" class="p-field-checkbox">
+    <p-checkbox #roles="ngModel" [required]="true"
+                value="role"
+                name="userRoles"
+                [value]="role"
+                [inputId]="role.name"
+                [(ngModel)]="user.roles"></p-checkbox>
+    <label [for]="role.name">{{role.name}}</label>
+    <div class="input-invalid" *ngIf="roles.invalid && (roles.dirty || roles.touched)">
+      <small *ngIf="roles.errors?.required" class="p-error error-text"></small>
+    </div>
   </div>
   <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Save"
-          class="p-button-lg p-button-rounded p-button-success" (click)="updateUser()"></button>
+          class="p-button-rounded p-button-success" (click)="updateUser()" routerLink="/users"></button>
 </form>
+<app-footer></app-footer>

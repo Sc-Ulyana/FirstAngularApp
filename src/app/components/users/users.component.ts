@@ -9,15 +9,14 @@ import {Title} from "@angular/platform-browser";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  users: User[] = []
+  users: User[] = [];
 
-  constructor(private userService: UserService, private titleService: Title) {
-    this.titleService.setTitle("Users list")
+  constructor(private titleList: Title, private usersService: UserService) {
+    this.titleList.setTitle("Users list");
   }
 
   ngOnInit(): void {
-    this.userService.getAllUsers().subscribe(users => this.users = users);
+    this.users = this.usersService.getAllUsers();
   }
-
 
 }

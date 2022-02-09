@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./password-edit.component.scss']
 })
 export class PasswordEditComponent implements OnInit {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordRepeat: string;
+  showPassword: boolean;
+  showNewPassword: boolean;
+  showNewPasswordRepeat: boolean;
+
 
   constructor() { }
 

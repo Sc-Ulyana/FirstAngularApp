@@ -1,13 +1,34 @@
-<form>
+<form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && onSubmit()" novalidate>
   <h1>Log In</h1>
-  <div class="p-float-label">
-    <input id="login" type="text" pInputText>
-    <label for="login">Login</label>
+  <div>
+    <div class="p-float-label">
+      <input id="login" #login="ngModel" [(ngModel)]="form.login" name="login" type="text" pInputText required>
+      <label for="login">Login</label>
+    </div>
+    <div class="input-invalid" *ngIf="login.invalid && (login.dirty || login.touched)">
+      <small *ngIf="login.errors?.required" class="p-error block error-text">Login is required</small>
+    </div>
   </div>
-  <div class="p-float-label">
-    <p-password id="password" inputStyleClass="style" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" name="password"></p-password>
-    <label for="password">Password</label>
+  <div>
+    <div class="p-float-label">
+      <input id="password" #password="ngModel" [(ngModel)]="form.password" name="password" pInputText required="true" autocomplete="off">
+      <label for="password">Password</label>
+      <i class="pi pi-eye-slash icon"
+         (click)="showPassword = !showPassword"
+         [class.hide]="showPassword">
+      </i>
+      <i class="pi pi-eye icon"
+         (click)="showPassword = !showPassword"
+         [class.hide]="!showPassword">
+      </i>
+    </div>
+    <div>
+      <div class="input-invalid" *ngIf="password.invalid && (password.dirty || password.touched)">
+        <small *ngIf="password.errors?.required" class="p-error block error-text">Password is required</small>
+      </div>
+    </div>
   </div>
   <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Sign in"
-                                   class="p-button-rounded p-button-success"  routerLink="/welcome"></button>
+          class="p-button-rounded p-button-success"></button>
 </form>
+<app-footer></app-footer>

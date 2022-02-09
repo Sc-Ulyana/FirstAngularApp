@@ -13,7 +13,7 @@ import {TableModule} from "primeng/table";
 import {UserEditComponent} from './components/user-edit/user-edit.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {CalendarModule} from "primeng/calendar";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PasswordModule} from "primeng/password";
 import {BadgeModule} from "primeng/badge";
 import {UserDeleteComponent} from './components/user-delete/user-delete.component';
@@ -25,8 +25,11 @@ import {PasswordEditComponent} from './components/password-edit/password-edit.co
 import {PanelModule} from "primeng/panel";
 import {MenuModule} from "primeng/menu";
 import {HttpClientModule} from "@angular/common/http";
-import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
-import {InMemoryDataService} from "./service/in-memory-data.service";
+import {StyleClassModule} from "primeng/styleclass";
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { AlertComponent } from './components/alert/alert.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,16 +40,16 @@ import {InMemoryDataService} from "./service/in-memory-data.service";
     UserDeleteComponent,
     ErrorComponent,
     UserAddComponent,
-    PasswordEditComponent
+    PasswordEditComponent,
+    HeaderComponent,
+    FooterComponent,
+    AlertComponent
   ],
   imports: [
     AppRoutingModule,
     BadgeModule,
     BrowserModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService,{dataEncapsulation: false}
-    ),
     BrowserAnimationsModule,
     ButtonModule,
     CheckboxModule,
@@ -58,7 +61,9 @@ import {InMemoryDataService} from "./service/in-memory-data.service";
     PanelModule,
     MenuModule,
     TableModule,
-    RippleModule
+    RippleModule,
+    StyleClassModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

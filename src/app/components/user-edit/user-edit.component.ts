@@ -6,6 +6,7 @@ import {UserService} from "../../service/user.service";
 import {HttpClient} from "@angular/common/http";
 import {take} from "rxjs";
 import {Location} from "@angular/common";
+import {Role} from "../../domain/role";
 
 @Component({
   selector: 'app-user-edit',
@@ -13,38 +14,47 @@ import {Location} from "@angular/common";
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
+  showPassword: boolean;
   minDate: Date;
   maxDate: Date;
   user: User;
   newLogin: string;
+  allRoles: any[] = [];
 
   constructor(private titleService: Title, private route: ActivatedRoute, private userService: UserService, private http: HttpClient, private location: Location) {
     this.titleService.setTitle("Edit user");
   }
 
   ngOnInit(): void {
-    this.minDate = new Date(1955,1,1);
-    this.maxDate = new Date(2004,1,1);
+    this.minDate = new Date(1955, 1, 1);
+    this.maxDate = new Date(2004, 1, 1);
     this.getUser();
+    this.allRoles = this.userService.getAllRoles();
   }
 
-  getUser(): void{
+  getUser(): User {
     const id = parseInt(this.route.snapshot.queryParamMap.get('userToEdit')!, 10);
-    this.userService.getUser(id).subscribe(user=>
-    {this.user = user;
-      this.user.date = new Date(user.date);
-    });
+    return this.user = this.userService.getUser(id);
   }
 
-  updateUser(): void{
-    if(this.user){
-      this.userService.updateUser(this.user).subscribe(()=>this.goBack())
-        console.log(this.user)
-  }
-  }
-
-  goBack():void{
-    this.location.back();
+  updateUser(): void {
+    this.userService.updateUser(this.user);
   }
 }
+
+// updateUser(): void {
+//   if (this.user) {
+//     this.userService.updateUser(this.user)
+//       .subscribe(() => {
+//         this.userService.getAllUsers().subscribe(data => {
+//           console.log(data)
+//           this.goBack()
+//         })
+//       })
+//   }
+// }
+
+// goBack(): void {
+//   this.location.back();
+// }
 

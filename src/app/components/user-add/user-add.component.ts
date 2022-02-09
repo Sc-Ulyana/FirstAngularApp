@@ -9,27 +9,23 @@ import {User} from "../../domain/user";
   styleUrls: ['./user-add.component.scss']
 })
 export class UserAddComponent implements OnInit {
+  showPassword: boolean;
   minDate: Date;
   maxDate: Date;
-  users: User[];
-  password: string;
+  user: User = new User(0, '', '', '', '', undefined, undefined, []);
+  allRoles: any[] = [];
 
   constructor(private titleService: Title, private userService: UserService) {
     this.titleService.setTitle("User add")
   }
 
   ngOnInit() {
-    this.minDate = new Date();
-    this.minDate.setMonth(1);
-    this.minDate.setFullYear(1950);
-    this.maxDate = new Date();
-    this.maxDate.setMonth(1);
-    this.maxDate.setFullYear(2004);
+    this.minDate = new Date(1950, 1);
+    this.maxDate = new Date(2004, 1);
+    this.allRoles = this.userService.getAllRoles()
   }
 
-  addUser(login: string, password: string){
-    this.userService.addUser({login} as User).subscribe(
-      response => this.users.push(response)
-    )
+  addUser() {
+    this.userService.addUser(this.user);
   }
 }
