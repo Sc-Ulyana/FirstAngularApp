@@ -11,12 +11,13 @@ import {Title} from "@angular/platform-browser";
 export class UsersComponent implements OnInit {
   users: User[] = [];
 
-  constructor(private titleList: Title, private usersService: UserService) {
+  constructor(private titleList: Title, private userService: UserService) {
     this.titleList.setTitle("Users list");
   }
 
   ngOnInit(): void {
-    this.users = this.usersService.getAllUsers();
+    this.userService.getAllUsers().subscribe(users => this.users = users);
+    console.log(this.users)
   }
 
 }

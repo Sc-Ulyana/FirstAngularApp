@@ -1,12 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {User} from "../../domain/user";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../service/user.service";
-import {HttpClient} from "@angular/common/http";
-import {take} from "rxjs";
-import {Location} from "@angular/common";
 import {Role} from "../../domain/role";
+import {AlertService} from "../../service/alert.service";
 
 @Component({
   selector: 'app-user-edit',
@@ -19,9 +17,10 @@ export class UserEditComponent implements OnInit {
   maxDate: Date;
   user: User;
   newLogin: string;
-  allRoles: any[] = [];
+  allRoles: Role[];
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private userService: UserService, private http: HttpClient, private location: Location) {
+  constructor(private titleService: Title, private route: ActivatedRoute, private userService: UserService,
+              private alertService: AlertService, private router: Router) {
     this.titleService.setTitle("Edit user");
   }
 
@@ -29,32 +28,23 @@ export class UserEditComponent implements OnInit {
     this.minDate = new Date(1955, 1, 1);
     this.maxDate = new Date(2004, 1, 1);
     this.getUser();
-    this.allRoles = this.userService.getAllRoles();
+    this.getAllRoles();
   }
 
-  getUser(): User {
+  getUser(): void {
     const id = parseInt(this.route.snapshot.queryParamMap.get('userToEdit')!, 10);
-    return this.user = this.userService.getUser(id);
+    this.userService.getUser(id).subscribe(user => this.user = user);
   }
 
   updateUser(): void {
-    this.userService.updateUser(this.user);
+    this.userService.updateUser(this.user).subscribe(user => {
+      this.user = user;
+      this.router.navigate(["/users"]);
+      this.alertService.success("User was deleted")
+    });
+  }
+
+  getAllRoles(): void {
+    this.userService.getAllRoles().subscribe(roles => this.allRoles = roles)
   }
 }
-
-// updateUser(): void {
-//   if (this.user) {
-//     this.userService.updateUser(this.user)
-//       .subscribe(() => {
-//         this.userService.getAllUsers().subscribe(data => {
-//           console.log(data)
-//           this.goBack()
-//         })
-//       })
-//   }
-// }
-
-// goBack(): void {
-//   this.location.back();
-// }
-

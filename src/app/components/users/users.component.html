@@ -1,5 +1,11 @@
 <app-header></app-header>
-<h2>Users list <button [ngStyle]="{backgroundColor:'var(--green-600)'}" pButton pRipple type="button" icon="pi pi-user-plus" class="p-button-rounded p-button-success button-align" routerLink="/user-add"></button></h2>
+<h2>Users list
+  <button [ngStyle]="{backgroundColor:'var(--green-600)'}" pButton pRipple type="button" icon="pi pi-user-plus"
+          class="p-button-rounded p-button-success button-align" routerLink="/user-add"></button>
+</h2>
+<div>
+  <alert></alert>
+</div>
 <p-table [value]="users" responsiveLayout="scroll">
   <ng-template pTemplate="header">
     <tr>
@@ -10,7 +16,7 @@
       <th>Date of birth</th>
       <th>Salary</th>
       <th>Roles</th>
-      <th><th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-user>
@@ -22,7 +28,9 @@
       <td>{{user.date|date:'dd-MM-yyyy'}}</td>
       <td>{{user.salary}}</td>
       <td>{{user.roles}}</td>
-      <td><a href="/user-delete?userToDelete={{user.id}}"><button pButton pRipple type="button" icon="pi pi-user-minus" class="p-button-rounded p-button-danger"></button></a></td>
+      <td><a href="/user-delete?userToDelete={{user.id}}">
+        <button pButton pRipple type="button" icon="pi pi-user-minus" class="p-button-rounded p-button-danger"></button>
+      </a></td>
     </tr>
   </ng-template>
 </p-table>

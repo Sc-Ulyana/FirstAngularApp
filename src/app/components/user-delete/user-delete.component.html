@@ -2,8 +2,8 @@
 <form *ngIf="user">
   <h1>Delete user  {{user.login}}?</h1>
   <p>
-    <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" icon="pi pi-check" label="Delete" class="p-button-lg p-button-rounded p-button-success" (click)="deleteUser()" routerLink="/users"></button>
-    <button pButton pRipple type="button" icon="pi pi-times" label="Cancel" class="p-button-lg p-button-rounded p-button-danger" routerLink="/users"></button>
+    <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" icon="pi pi-check" label="Delete" class="p-button-lg p-button-rounded p-button-success" (click)="deleteUser()"></button>
+    <button pButton pRipple type="button" icon="pi pi-times" label="Cancel" class="p-button-lg p-button-rounded p-button-danger"></button>
   </p>
 </form>
 <app-footer></app-footer>

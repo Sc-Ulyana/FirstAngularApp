@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   login: string;
   password: string;
   showPassword: boolean;
+
   form: any = {
     login: null,
     password: null
