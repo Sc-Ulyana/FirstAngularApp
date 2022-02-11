@@ -5,6 +5,7 @@ import {User} from "../../domain/user";
 import {Role} from "../../domain/role";
 import {AlertService} from "../../service/alert.service";
 import {Router} from "@angular/router";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-user-add',
@@ -29,14 +30,16 @@ export class UserAddComponent implements OnInit {
     this.getAllRoles()
   }
 
-  addUser() {
-    this.userService.addUser(this.user).subscribe(user => { this.user = user
-    this.alertService.success("User was added")});
-    this.router.navigate(["/users"]);
-  }
-
-
   getAllRoles(): void {
     this.userService.getAllRoles().subscribe(roles => this.allRoles = roles)
   }
+
+  onSubmit(addUser: NgForm) {
+    this.userService.addUser(this.user).subscribe(user => {
+      this.user = user
+      this.alertService.success("User was added")
+    });
+    this.router.navigate(["/users"]);
+  }
+
 }

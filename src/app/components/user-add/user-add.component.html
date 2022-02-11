@@ -1,5 +1,5 @@
 <app-header></app-header>
-<form #editUserForm="ngForm" novalidate *ngIf="user">
+<form *ngIf="user" #addUserForm="ngForm" (ngSubmit)="onSubmit(addUserForm)" novalidate>
   <h1>Add user</h1>
   <div>
     <div class="p-float-label">
@@ -84,7 +84,7 @@
       <label [for]="role.name">{{role.name}}</label>
     </div>
   </div>
-  <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Save"
-          class="p-button-rounded p-button-success" (click)="addUser()"></button>
+  <button [disabled]="!addUserForm.valid" [ngStyle]="{backgroundColor:'#078d07'}" type="submit" pButton pRipple label="Save"
+          class="p-button-rounded p-button-success"></button>
 </form>
 <app-footer></app-footer>

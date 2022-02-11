@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Sign in"
+  <button [disabled]="loginForm.invalid" [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Sign in"
           class="p-button-rounded p-button-success"></button>
 </form>
 <app-footer></app-footer>

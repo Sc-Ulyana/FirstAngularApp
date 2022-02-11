@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-password-edit',
@@ -13,10 +13,9 @@ export class PasswordEditComponent implements OnInit {
   showNewPassword: boolean;
   showNewPasswordRepeat: boolean;
 
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
-
 }

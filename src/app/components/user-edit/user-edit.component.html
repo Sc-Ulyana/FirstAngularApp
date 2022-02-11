@@ -1,5 +1,5 @@
 <app-header></app-header>
-<form #addUserForm="ngForm" novalidate *ngIf="user">
+<form #editUserForm="ngForm" novalidate *ngIf="user">
   <h1>Edit user {{user.login}}</h1>
   <div>
     <div class="p-float-label">
@@ -80,7 +80,7 @@
       <small *ngIf="roles.errors?.required" class="p-error error-text"></small>
     </div>
   </div>
-  <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Save"
+  <button [disabled]="editUserForm.invalid" [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Save"
           class="p-button-rounded p-button-success" (click)="updateUser()"></button>
 </form>
 <app-footer></app-footer>
