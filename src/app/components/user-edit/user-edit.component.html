@@ -58,10 +58,10 @@
   </div>
   <div>
     <div class="p-float-label ">
-      <p-calendar #date="ngModel" [minDate]="minDate" [maxDate]="maxDate" inputStyleClass="style"
-                  [style]="{'width':'100%'}"
-                  id="dob" dateFormat="mm-dd-yy" inputId="dateformat" [(ngModel)]="user.date" name="date"
-                  [required]="true"></p-calendar>
+      <p-calendar
+        #date="ngModel" [minDate]="minDate" [maxDate]="maxDate" inputStyleClass="style" [style]="{'width':'100%'}"
+        id="dob" dateFormat="mm-dd-yy" inputId="dateformat" [(ngModel)]="user.date" name="date"
+        [required]="true"></p-calendar>
       <label for="dob">Date of birth</label>
     </div>
     <div class="input-invalid" *ngIf="date.invalid && (date.dirty || date.touched)">

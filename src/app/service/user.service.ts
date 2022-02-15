@@ -38,6 +38,7 @@ export class UserService {
     const url = `${this.usersUrl}/${id}`;
     return this.http.get<User>(url);
   }
+
   addUser(user: User): Observable<User> {
     return this.http.post<User>(this.usersUrl, user, this.httpOptions)
   }
