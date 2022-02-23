@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from "../../service/user.service";
+import {Router} from "@angular/router";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-password-edit',
@@ -6,16 +9,49 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./password-edit.component.scss']
 })
 export class PasswordEditComponent implements OnInit {
-  oldPassword: string;
-  newPassword: string;
-  newPasswordRepeat: string;
   showPassword: boolean;
   showNewPassword: boolean;
   showNewPasswordRepeat: boolean;
+  errorMessage: string;
 
-  constructor() {
+  form: any = {
+    passwordNew: null,
+    passwordNewRep: null
+  };
+
+
+  constructor(private userService: UserService, private router: Router, private noteService: NotificationService) {
   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(): void {
+    const {passwordOld, passwordNew, passwordNewRep} = this.form;
+
+    if (passwordNew != passwordNewRep) {
+      this.errorMessage = 'Passwords not equal';
+    } else {
+      let pass = {
+        "oldPass": passwordOld,
+        "newPass": passwordNew,
+        "newPassRepeat": passwordNewRep
+      }
+      this.userService.changePassword(pass).subscribe((res) => {
+          if (res) {
+            this.noteService.success('Password change');
+            this.router.navigateByUrl("/welcome");
+          } else {
+            this.errorMessage = 'Error';
+            console.log(this.errorMessage);
+          }
+
+        }
+      );
+    }
+  }
+
+  checkCoincide(passwordNew: any, passwordNewRep: any): boolean {
+    return passwordNew != passwordNewRep;
   }
 }

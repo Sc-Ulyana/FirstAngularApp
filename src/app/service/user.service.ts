@@ -3,7 +3,6 @@ import {User} from "../domain/user";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {elementAt, Observable} from "rxjs";
 import {Role} from "../domain/role";
-import {AlertService} from "./alert.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,42 +14,58 @@ export class UserService {
   private users: User[] = [];
   private roles: Role[] = [];
 
+  header = {
+    headers: new HttpHeaders()
+      .set('Authorization',  `Bearer ${localStorage.getItem('token')}`)
+  }
+
   httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    )
   };
 
   constructor(
-    private http: HttpClient,
-    private alertService: AlertService) {
-     }
-
-  /** GET heroes from the server */
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl);
+    private http: HttpClient) {
   }
 
 
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>("http://localhost:8080/webdipatch/users/", this.httpOptions);
+  }
+
   getAllRoles(): Observable<Role[]> {
-    return this.http.get<Role[]>(this.rolesUrl);
+    return this.http.get<Role[]>("http://localhost:8080/webdipatch/roles/", this.httpOptions);
   }
 
   getUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/${id}`;
-    return this.http.get<User>(url);
+    return this.http.get<User>("http://localhost:8080/webdipatch/users/" + id, this.httpOptions);
   }
 
   addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user, this.httpOptions)
+    return this.http.post<User>("http://localhost:8080/webdipatch/users/newUser", user, this.httpOptions);
   }
 
   deleteUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/${id}`;
-    return this.http.delete<User>(url, this.httpOptions)
+    return this.http.delete<User>("http://localhost:8080/webdipatch/users/" + id, this.httpOptions);
   }
 
-
-  updateUser(user: User): Observable<any> {
-    return this.http.put(this.usersUrl, user, this.httpOptions);
+  changePassword(pass: Object): Observable<Object>{
+    console.log(pass)
+    return  this.http.put("http://localhost:8080/webdipatch/changePassword/", pass, this.httpOptions);
   }
 
+  updateUser(id: number, user: User): Observable<any> {
+    return this.http.put("http://localhost:8080/webdipatch/users/" + id, user, this.httpOptions);
+  }
+
+  getUserForAuthorization(login: string, password: string): Observable<Object>{
+    return this.http.post("http://localhost:8080/webdipatch/auth/",{login,password});
+  }
+
+  checkUserForAuthorization(): Observable<Object> {
+    return this.http.get("http://localhost:8080/webdipatch/validate", this.httpOptions);
+  }
 }

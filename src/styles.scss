@@ -3,7 +3,6 @@
 @import url("../node_modules/primeng/resources/themes/saga-orange/theme.css");
 @import url("../node_modules/primeng/resources/primeng.min.css");
 
-
 html{
   background-color: #fffdfd;
   font-family: "Cousine",monospace;
@@ -73,7 +72,7 @@ input.ng-invalid.ng-touched~.icon{
 .footer {
   position: fixed;
   bottom: 0;
-  width: 40%;
+  width: 10%;
   color: #078d07;
   height: 60px;
   line-height: 60px;
@@ -86,4 +85,24 @@ i {
   position: absolute;
   right: 20px;
   top: 18px;
+}
+.error{
+  width: 400px;
+  height: 40px;
+  background-color: #cb5151;
+  border-radius: 5px;
+  font-size: 18px;
+  text-align: center;
+  padding-top: 12px;
+  color: white;
+}
+.success{
+  width: 280px;
+  height: 40px;
+  background-color: #5bc45b;
+  border-radius: 5px;
+  font-size: 18px;
+  text-align: center;
+  padding-top: 12px;
+  color: white;
 }

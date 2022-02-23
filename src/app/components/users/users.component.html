@@ -4,15 +4,14 @@
           class="p-button-rounded p-button-success button-align" routerLink="/user-add"></button>
 </h2>
 <div>
-  <alert></alert>
+  <note></note>
 </div>
 <p-table [value]="users" responsiveLayout="scroll">
   <ng-template pTemplate="header">
     <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Login</th>
-      <th>Password</th>
+      <th pSortableColumn="id">Id</th>
+      <th pSortableColumn="name">Name</th>
+      <th pSortableColumn="login">Login</th>
       <th>Email</th>
       <th>Date of birth</th>
       <th>Salary</th>
@@ -25,11 +24,10 @@
       <td>{{user.id}}</td>
       <td><a href="/user-edit?userToEdit={{user.id}}">{{user.name}}</a></td>
       <td>{{user.login}}</td>
-      <td>{{user.password}}</td>
       <td>{{user.email}}</td>
-      <td>{{user.date|date:'dd-MM-yyyy'}}</td>
+      <td>{{user.dateOfBirth|date:'dd-MM-yyyy'}}</td>
       <td>{{user.salary}}</td>
-      <td>{{user.roles}}</td>
+      <td><div *ngFor="let role of user.roles">{{role.name}}</div></td>
       <td><a href="/user-delete?userToDelete={{user.id}}">
         <button pButton pRipple type="button" icon="pi pi-user-minus" class="p-button-rounded p-button-danger"></button>
       </a></td>

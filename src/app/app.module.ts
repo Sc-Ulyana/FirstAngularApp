@@ -8,8 +8,6 @@ import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {CheckboxModule} from "primeng/checkbox";
 import {CalendarModule} from "primeng/calendar";
-import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
-import {InMemoryDataService} from "./service/in-memory-data.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PasswordModule} from "primeng/password";
 import {BadgeModule} from "primeng/badge";
@@ -27,12 +25,13 @@ import {UsersComponent} from './components/users/users.component';
 import {HeaderComponent} from './components/header/header.component';
 import {UserEditComponent} from './components/user-edit/user-edit.component';
 import {FooterComponent} from './components/footer/footer.component';
-import {AlertComponent} from './components/alert/alert.component';
 import {ErrorComponent} from './components/error/error.component';
 import {UserDeleteComponent} from './components/user-delete/user-delete.component';
 import {UserAddComponent} from './components/user-add/user-add.component';
 import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
+import {NotificationComponent} from './components/notification/notification.component';
+import {NotificationService} from "./service/notification.service";
 
 @NgModule({
   declarations: [
@@ -47,15 +46,13 @@ import {MessagesModule} from "primeng/messages";
     PasswordEditComponent,
     HeaderComponent,
     FooterComponent,
-    AlertComponent
+    NotificationComponent
   ],
   imports: [
     AppRoutingModule,
     BadgeModule,
     BrowserModule,
-    HttpClientModule, HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false}
-    ),
+    HttpClientModule,
     BrowserAnimationsModule,
     ButtonModule,
     CheckboxModule,

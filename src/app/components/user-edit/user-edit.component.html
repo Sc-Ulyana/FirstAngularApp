@@ -1,12 +1,13 @@
 <app-header></app-header>
-<form #editUserForm="ngForm" novalidate *ngIf="user">
+<form #editUserForm="ngForm" (ngSubmit)="editUserForm.form.valid && onSubmit()" novalidate *ngIf="user">
   <h1>Edit user {{user.login}}</h1>
   <div>
     <div class="p-float-label">
       <input #name="ngModel" id="name" type="text" pInputText [(ngModel)]="user.name" name="name" required>
       <label for="name">Name</label>
     </div>
-    <div class="input-invalid" *ngIf="name.invalid && (name.dirty || name.touched)">
+    <div class="input-invalid"
+         *ngIf="name.invalid && (name.dirty || name.touched) || (name.errors && editUserForm.submitted)">
       <small *ngIf="name.errors?.required" class="p-error block error-text">Name is required</small>
     </div>
   </div>
@@ -15,7 +16,8 @@
       <input #login="ngModel" id="login" type="text" pInputText [(ngModel)]="user.login" name="login" required>
       <label for="login">Login</label>
     </div>
-    <div class="input-invalid" *ngIf="login.invalid && (login.dirty || login.touched)">
+    <div class="input-invalid"
+         *ngIf="login.invalid && (login.dirty || login.touched) || (login.errors && editUserForm.submitted)">
       <small *ngIf="login.errors?.required" class="p-error error-text ng-invalid ng-dirty">Login is required</small>
       <small *ngIf="login.errors?.minlength" class="p-error error-text"> Name must be at least 6 characters
         long.</small>
@@ -24,7 +26,7 @@
   <div>
     <div class="p-float-label">
       <input #password="ngModel" id="password" pInputText pPassword [(ngModel)]="user.password"
-             name="password"  [type]="showPassword ? 'text' : 'password'" required>
+             name="password" [type]="showPassword ? 'text' : 'password'" minlength="5" required>
       <label for="password">Password</label>
       <i class="pi pi-eye-slash icon"
          (click)="showPassword = !showPassword"
@@ -33,17 +35,23 @@
          (click)="showPassword = !showPassword"
          [class.hide]="!showPassword"></i>
     </div>
-    <div class="input-invalid" *ngIf="password.invalid && (password.dirty || password.touched)">
+    <div class="input-invalid"
+         *ngIf="password.invalid && (password.dirty || password.touched) || (password.errors && editUserForm.submitted)">
       <small *ngIf="password.errors?.required" class="p-error error-text">Password is required</small>
+      <small *ngIf="password.errors?.minlength" class="p-error error-text">Password should be at least 5 symbols
+        length</small>
     </div>
   </div>
   <div>
     <div class="p-float-label">
-      <input #email="ngModel" id="email" type="text" pInputText [(ngModel)]="user.email" name="email" required>
+      <input #email="ngModel" id="email" type="text" pInputText [(ngModel)]="user.email" name="email" email="true"
+             required>
       <label for="email">Email</label>
     </div>
-    <div class="input-invalid" *ngIf="email.invalid && (email.dirty || email.touched)">
+    <div class="input-invalid"
+         *ngIf="email.invalid && (email.dirty || email.touched) || (email.errors && editUserForm.submitted)">
       <small *ngIf="email.errors?.required" class="p-error error-text">Email is required</small>
+      <small *ngIf="email.errors?.email" class="p-error error-text">Enter your email address</small>
     </div>
   </div>
   <div>
@@ -52,35 +60,52 @@
                      [(ngModel)]="user.salary" name="salary" [required]="true"></p-inputNumber>
       <label for="salary">Salary</label>
     </div>
-    <div class="input-invalid" *ngIf="salary.invalid && (salary.dirty || salary.touched)">
+    <div class="input-invalid"
+         *ngIf="salary.invalid && (salary.dirty || salary.touched) || (salary.errors && editUserForm.submitted)">
       <small *ngIf="salary.errors?.required" class="p-error error-text">Salary is required</small>
     </div>
   </div>
   <div>
     <div class="p-float-label ">
       <p-calendar
-        #date="ngModel" [minDate]="minDate" [maxDate]="maxDate" inputStyleClass="style" [style]="{'width':'100%'}"
-        id="dob" dateFormat="mm-dd-yy" inputId="dateformat" [(ngModel)]="user.date" name="date"
+        [(ngModel)]="user.dateOfBirth" #date="ngModel" [minDate]="minDate" [maxDate]="maxDate" inputStyleClass="style"
+        [style]="{'width':'100%'}"
+        id="dob" dateFormat="dd-mm-yy" inputId="dateformat" name="date"
         [required]="true"></p-calendar>
       <label for="dob">Date of birth</label>
     </div>
-    <div class="input-invalid" *ngIf="date.invalid && (date.dirty || date.touched)">
+    <div class="input-invalid"
+         *ngIf="date.invalid && (date.dirty || date.touched) || (date.errors && editUserForm.submitted)">
       <small *ngIf="date.errors?.required" class="p-error error-text">Date is required</small>
     </div>
   </div>
-  <div *ngFor="let role of allRoles" class="p-field-checkbox">
-    <p-checkbox #roles="ngModel" [required]="true"
-                value="role"
-                name="userRoles"
-                [value]="role"
-                [inputId]="role.name"
-                [(ngModel)]="user.roles"></p-checkbox>
-    <label [for]="role.name">{{role.name}}</label>
-    <div class="input-invalid" *ngIf="roles.invalid && (roles.dirty || roles.touched)">
-      <small *ngIf="roles.errors?.required" class="p-error error-text"></small>
+  <div>
+    <div>
+      <label>Choose user roles: </label>
+    </div>
+    <div *ngFor="let role of allRoles" class="p-field-checkbox">
+      <p-checkbox #roles="ngModel" [required]="true"
+                  value="role"
+                  name="userRoles"
+                  [value]="role"
+                  [inputId]="role.name"
+                  [(ngModel)]="user.roles"></p-checkbox>
+      <label [for]="role.name">{{role.name}}</label>
+      <div class="input-invalid" *ngIf="roles.invalid && (roles.dirty || roles.touched)">
+        <small *ngIf="roles.errors?.required" class="p-error error-text"></small>
+      </div>
     </div>
   </div>
-  <button [disabled]="editUserForm.invalid" [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Save"
-          class="p-button-rounded p-button-success" (click)="updateUser()"></button>
+  <p>
+    <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple icon="pi pi-check" label="Confirm"
+            class=" p-button-rounded p-button-success"></button>
+    <button pButton pRipple type="button" icon="pi pi-times" label="Cancel"
+            class="p-button-rounded p-button-danger" routerLink="/welcome"></button>
+  </p>
+  <!--  <button [disabled]="editUserForm.invalid" [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button"-->
+  <!--          icon="pi pi-check" label="Save"-->
+  <!--          class="p-button-rounded p-button-success" (click)="updateUser()"></button>-->
+  <!--  <button pButton pRipple type="button" icon="pi pi-times" label="Cancel"-->
+  <!--          class="p-button-rounded p-button-danger" routerLink="/users"></button>-->
 </form>
 <app-footer></app-footer>

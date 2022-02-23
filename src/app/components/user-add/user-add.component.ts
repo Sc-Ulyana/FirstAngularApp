@@ -3,9 +3,9 @@ import {Title} from "@angular/platform-browser";
 import {UserService} from "../../service/user.service";
 import {User} from "../../domain/user";
 import {Role} from "../../domain/role";
-import {AlertService} from "../../service/alert.service";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-user-add',
@@ -16,11 +16,22 @@ export class UserAddComponent implements OnInit {
   showPassword: boolean;
   minDate: Date;
   maxDate: Date;
+  message: string;
   user: User = new User(0, '', '', '', '', undefined, undefined, []);
   allRoles: Role[];
 
-  constructor(private titleService: Title, private userService: UserService, private alertService: AlertService,
-              private router: Router) {
+  form: any = {
+    login: null,
+    password: null,
+    name: null,
+    email: null,
+    salary: null,
+    dateOfBirth: null,
+    roles: null
+  };
+
+  constructor(private titleService: Title, private userService: UserService, private router: Router,
+              private noteService: NotificationService) {
     this.titleService.setTitle("User add")
   }
 
@@ -35,9 +46,12 @@ export class UserAddComponent implements OnInit {
   }
 
   onSubmit(addUser: NgForm) {
+    const {login, password, name, email, salary, dateOfBirth, roles} = this.form;
+
+    console.log(this.user);
     this.userService.addUser(this.user).subscribe(user => {
-      this.user = user
-      this.alertService.success("User was added")
+      this.noteService.success( "User " + `${this.user.login}` + " was added");
+      this.user = user;
     });
     this.router.navigate(["/users"]);
   }

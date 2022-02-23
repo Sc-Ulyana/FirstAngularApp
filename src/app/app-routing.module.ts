@@ -11,6 +11,7 @@ import {UserAddComponent} from "./components/user-add/user-add.component";
 import {PasswordEditComponent} from "./components/password-edit/password-edit.component";
 
 const routes: Routes = [
+    {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'welcome', component: WelcomeComponent},
     {path: 'users', component: UsersComponent},

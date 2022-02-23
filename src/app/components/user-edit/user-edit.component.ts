@@ -4,7 +4,7 @@ import {User} from "../../domain/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../service/user.service";
 import {Role} from "../../domain/role";
-import {AlertService} from "../../service/alert.service";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-user-edit',
@@ -12,6 +12,7 @@ import {AlertService} from "../../service/alert.service";
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
+  message:string;
   showPassword: boolean;
   minDate: Date;
   maxDate: Date;
@@ -20,7 +21,7 @@ export class UserEditComponent implements OnInit {
   allRoles: Role[];
 
   constructor(private titleService: Title, private route: ActivatedRoute, private userService: UserService,
-              private alertService: AlertService, private router: Router) {
+              private router: Router, private  noteService: NotificationService) {
     this.titleService.setTitle("Edit user");
   }
 
@@ -33,15 +34,19 @@ export class UserEditComponent implements OnInit {
 
   getUser(): void {
     const id = parseInt(this.route.snapshot.queryParamMap.get('userToEdit')!, 10);
-    this.userService.getUser(id).subscribe(user => this.user = user);
+    this.userService.getUser(id).subscribe(user => {
+      this.user = user;
+      //@ts-ignore
+      this.user.dateOfBirth = new Date(user.dateOfBirth);
+    });
   }
 
-  updateUser(): void {
-    this.userService.updateUser(this.user).subscribe(user => {
+  onSubmit(): void {
+    this.userService.updateUser(this.user.id, this.user).subscribe(user => {
+      this.noteService.success( "User " + `${this.user.login}` + " was edited");
       this.user = user;
-      this.router.navigate(["/users"]);
-      this.alertService.success("User was deleted")
     });
+    this.router.navigate(["/users"]);
   }
 
   getAllRoles(): void {

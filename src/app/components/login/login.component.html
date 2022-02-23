@@ -6,32 +6,32 @@
       <label for="login">Login</label>
     </div>
     <div class="input-invalid"
-         *ngIf="login.invalid && (login.dirty || login.touched)">
-      <small *ngIf="login.errors?.required" class="p-error block error-text">Login is required</small>
+         *ngIf="login.invalid && (login.dirty || login.touched) || (login.errors && loginForm.submitted)">
+      <small  class="p-error block error-text">Login is required</small>
     </div>
   </div>
   <div>
     <div class="p-float-label">
       <input id="password" #password="ngModel" [(ngModel)]="form.password" name="password" pInputText required="true"
-             autocomplete="off">
+             [type]="showPassword ? 'text' : 'password'" autocomplete="off">
       <label for="password">Password</label>
       <i class="pi pi-eye-slash icon"
          (click)="showPassword = !showPassword"
          [class.hide]="showPassword">
       </i>
       <i class="pi pi-eye icon"
-         (click)="showPassword = !showPassword"
+         (click)="showPassword= !showPassword"
          [class.hide]="!showPassword">
       </i>
     </div>
-    <div>
-      <div class="input-invalid"
-           *ngIf="(password.invalid && (password.dirty || password.touched)) || (login.errors && loginForm.submitted)">
-        <small *ngIf="password.errors?.required" class="p-error block error-text">Password is required</small>
-      </div>
+    <div class="input-invalid"
+         *ngIf="(password.invalid && (password.dirty || password.touched)) || (password.errors && loginForm.submitted)">
+      <small *ngIf="password.errors?.required" class="p-error block error-text">Password is required</small>
     </div>
   </div>
-  <button [disabled]="loginForm.invalid" [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" label="Sign in"
-          class="p-button-rounded p-button-success"></button>
+  <div>
+    <note></note>
+  </div>
+  <button [ngStyle]="{backgroundColor:'#078d07'}" pButton class="p-button-rounded " label="Log In"></button>
 </form>
 <app-footer></app-footer>

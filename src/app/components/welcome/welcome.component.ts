@@ -7,12 +7,14 @@ import {Title} from "@angular/platform-browser";
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
+  userLogin: any;
 
   constructor(private titleService: Title) {
     this.titleService.setTitle("Welcome")
   }
 
   ngOnInit(): void {
+    this.userLogin = localStorage.getItem("login");
   }
 
 }
