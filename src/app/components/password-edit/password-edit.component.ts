@@ -28,9 +28,8 @@ export class PasswordEditComponent implements OnInit {
 
   onSubmit(): void {
     const {passwordOld, passwordNew, passwordNewRep} = this.form;
-
     if (passwordNew != passwordNewRep) {
-      this.errorMessage = 'Passwords not equal';
+      this.noteService.error("Passwords not equal");
     } else {
       let pass = {
         "oldPass": passwordOld,
@@ -39,13 +38,11 @@ export class PasswordEditComponent implements OnInit {
       }
       this.userService.changePassword(pass).subscribe((res) => {
           if (res) {
-            this.noteService.success('Password change');
+            this.noteService.success("Password change");
             this.router.navigateByUrl("/welcome");
           } else {
-            this.errorMessage = 'Error';
-            console.log(this.errorMessage);
+            this.noteService.error("Old password is incorrect");
           }
-
         }
       );
     }

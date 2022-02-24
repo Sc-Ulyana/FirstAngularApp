@@ -33,6 +33,6 @@ export class UserDeleteComponent implements OnInit {
       this.noteService.success( "User " + `${this.user.login}` + " was deleted");
       this.user = user
     });
-    this.router.navigate(["/users"]);
+    this.router.navigateByUrl("/users");
   }
 }

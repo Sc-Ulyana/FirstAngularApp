@@ -37,11 +37,11 @@ export class LoginComponent implements OnInit {
     this.userService.getUserForAuthorization(login, password).subscribe(data => {
         // @ts-ignore
         localStorage.setItem("token", data.token);
-        localStorage.setItem("login", login);
-
+        localStorage.setItem("currentUserLogin", login);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.router.navigateByUrl('/welcome');
+        this.noteService.success('Registration successful', true);
+        this.router.navigate(['/welcome']);
       },
       err => {
       this.noteService.error("Username or password is incorrect")

@@ -31,7 +31,6 @@ import {UserAddComponent} from './components/user-add/user-add.component';
 import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 import {NotificationComponent} from './components/notification/notification.component';
-import {NotificationService} from "./service/notification.service";
 
 @NgModule({
   declarations: [

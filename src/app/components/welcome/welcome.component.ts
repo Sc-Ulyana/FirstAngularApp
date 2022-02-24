@@ -14,7 +14,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userLogin = localStorage.getItem("login");
+    this.userLogin = localStorage.getItem("currentUserLogin");
   }
 
 }

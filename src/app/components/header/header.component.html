@@ -1,13 +1,14 @@
 <header>
   <div style="text-align: center">
     <div style="display: inline-block; margin-left: 100px" class="header">
-          Users App
+      Users App
     </div>
     <div style="float: right; margin-top: 5px">
       <button type="button" class="round-button en"></button>
       <button type="button" class="round-button ru"></button>
       <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" icon="pi pi-sign-in"
-              class="p-button-lg p-button-rounded p-button-success" routerLink="/login"></button>
+              class="p-button-lg p-button-rounded p-button-success" (click)="clearLocalStorage()"
+              routerLink="/login"></button>
     </div>
     <div style="float: left">
       <button [ngStyle]="{backgroundColor:'#078d07'}" type="button" pButton icon="pi pi-bars" label="Menu"

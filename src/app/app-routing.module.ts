@@ -9,16 +9,19 @@ import {ErrorComponent} from "./components/error/error.component";
 import {AppComponent} from "./app.component";
 import {UserAddComponent} from "./components/user-add/user-add.component";
 import {PasswordEditComponent} from "./components/password-edit/password-edit.component";
+import {AdminGuard} from "./guards/admin.guard";
+import {LoginGuard} from "./guards/login.guard";
+import {AuthorizedGuard} from "./guards/authorized.guard";
 
 const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
-    {path: 'login', component: LoginComponent},
-    {path: 'welcome', component: WelcomeComponent},
-    {path: 'users', component: UsersComponent},
-    {path: 'user-add', component: UserAddComponent},
-    {path: 'user-edit', component: UserEditComponent},
-    {path: 'user-delete', component: UserDeleteComponent},
-    {path: 'password-edit', component: PasswordEditComponent},
+    {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+    {path: 'welcome', component: WelcomeComponent, canActivate: [AuthorizedGuard]},
+    {path: 'users', component: UsersComponent, canActivate: [AuthorizedGuard, AdminGuard]},
+    {path: 'user-add', component: UserAddComponent, canActivate: [AuthorizedGuard, AdminGuard]},
+    {path: 'user-edit', component: UserEditComponent, canActivate: [AuthorizedGuard, AdminGuard]},
+    {path: 'user-delete', component: UserDeleteComponent, canActivate: [AuthorizedGuard, AdminGuard]},
+    {path: 'password-edit', component: PasswordEditComponent, canActivate: [AuthorizedGuard]},
     {path: '**', component: ErrorComponent}
   ]
 ;

@@ -53,7 +53,7 @@ export class UserAddComponent implements OnInit {
       this.noteService.success( "User " + `${this.user.login}` + " was added");
       this.user = user;
     });
-    this.router.navigate(["/users"]);
+    this.router.navigateByUrl("/users");
   }
 
 }

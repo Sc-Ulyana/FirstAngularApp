@@ -7,6 +7,8 @@ import {MenuItem, PrimeNGConfig} from "primeng/api";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  isAdmin: boolean;
+  stringA: string;
 
   items: MenuItem[];
 
@@ -14,6 +16,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isCurrentUserAdmin();
+    console.log(this.isCurrentUserAdmin());
     this.primengConfig.ripple = true;
 
     this.items = [
@@ -25,7 +29,8 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Users list',
         icon: 'pi pi-users',
-        url: '/users'
+        url: '/users',
+        visible: this.isCurrentUserAdmin()
       },
       {
         label: 'Change password',
@@ -39,4 +44,20 @@ export class HeaderComponent implements OnInit {
       }
     ]
   }
+
+  isCurrentUserAdmin(): boolean {
+    this.isAdmin = false;
+    //@ts-ignore
+    JSON.parse(window.atob(localStorage.getItem('token').split('.')[1])).roles?.forEach(element => {
+      if (element.name == "ROLE_ADMIN") {
+        this.isAdmin = true;
+      }
+    });
+    return this.isAdmin;
+  }
+
+  clearLocalStorage(): void {
+    localStorage.clear();
+  }
 }
+

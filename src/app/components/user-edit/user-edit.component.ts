@@ -46,7 +46,7 @@ export class UserEditComponent implements OnInit {
       this.noteService.success( "User " + `${this.user.login}` + " was edited");
       this.user = user;
     });
-    this.router.navigate(["/users"]);
+    this.router.navigateByUrl("/users");
   }
 
   getAllRoles(): void {
