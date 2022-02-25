@@ -1,5 +1,5 @@
 <app-header></app-header>
-<h2>Users list
+<h2>{{'title.usersList'|translate}}
   <button [ngStyle]="{backgroundColor:'var(--green-600)'}" pButton pRipple type="button" icon="pi pi-user-plus"
           class="p-button-rounded p-button-success button-align" routerLink="/user-add"></button>
 </h2>
@@ -9,13 +9,13 @@
 <p-table [value]="users" responsiveLayout="scroll">
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="id">Id</th>
-      <th pSortableColumn="name">Name</th>
-      <th pSortableColumn="login">Login</th>
-      <th>Email</th>
-      <th>Date of birth</th>
-      <th>Salary</th>
-      <th>Roles</th>
+      <th pSortableColumn="id">{{'usersTable.id'|translate}}</th>
+      <th pSortableColumn="name">{{'usersTable.name'|translate}}</th>
+      <th pSortableColumn="login">{{'usersTable.login'|translate}}</th>
+      <th>{{'usersTable.email'|translate}}</th>
+      <th>{{'usersTable.date'|translate}}</th>
+      <th>{{'usersTable.salary'|translate}}</th>
+      <th>{{'usersTable.roles'|translate}}</th>
       <th></th>
     </tr>
   </ng-template>

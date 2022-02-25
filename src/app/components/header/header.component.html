@@ -1,6 +1,6 @@
 <header>
   <div style="text-align: center">
-    <div style="display: inline-block; margin-left: 100px" class="header">
+    <div style="display: inline-block; margin-left: 100px" class="header" >
       Users App
     </div>
     <div style="float: right; margin-top: 5px">
@@ -11,7 +11,7 @@
               routerLink="/login"></button>
     </div>
     <div style="float: left">
-      <button [ngStyle]="{backgroundColor:'#078d07'}" type="button" pButton icon="pi pi-bars" label="Menu"
+      <button [ngStyle]="{backgroundColor:'#078d07'}" type="button" pButton icon="pi pi-bars" label="{{'menu.header'|translate}}"
               (click)="menu.toggle($event)"></button>
       <p-menu #menu [popup]="true" [model]="items"></p-menu>
     </div>

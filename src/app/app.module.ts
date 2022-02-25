@@ -15,7 +15,9 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {PanelModule} from "primeng/panel";
 import {MenuModule} from "primeng/menu";
-import {HttpClientModule} from "@angular/common/http";
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {StyleClassModule} from "primeng/styleclass";
 import {AppComponent} from './app.component';
 import {PasswordEditComponent} from './components/password-edit/password-edit.component';
@@ -52,6 +54,13 @@ import {NotificationComponent} from './components/notification/notification.comp
     BadgeModule,
     BrowserModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     BrowserAnimationsModule,
     ButtonModule,
     CheckboxModule,
@@ -71,5 +80,8 @@ import {NotificationComponent} from './components/notification/notification.comp
   bootstrap: [AppComponent]
 })
 export class AppModule {
+}
 
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
 }

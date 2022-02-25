@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem, PrimeNGConfig} from "primeng/api";
+import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
+import {calcPossibleSecurityContexts} from "@angular/compiler/src/template_parser/binding_parser";
 
 @Component({
   selector: 'app-header',
@@ -8,42 +10,43 @@ import {MenuItem, PrimeNGConfig} from "primeng/api";
 })
 export class HeaderComponent implements OnInit {
   isAdmin: boolean;
-  stringA: string;
+  items: MenuItem[] = [];
 
-  items: MenuItem[];
 
-  constructor(private primengConfig: PrimeNGConfig) {
+  constructor(private primengConfig: PrimeNGConfig, private translate: TranslateService) {
+
   }
 
   ngOnInit() {
     this.isCurrentUserAdmin();
     console.log(this.isCurrentUserAdmin());
     this.primengConfig.ripple = true;
-
+    console.log(this.translate.translations['menu.header']);
     this.items = [
       {
-        label: 'Main',
+        label: this.translate.instant('menu.welcome'),
         icon: 'pi pi-arrow-left',
-        url: '/welcome'
+        url: '/welcome',
       },
       {
-        label: 'Users list',
+        label: this.translate.instant('menu.usersList'),
         icon: 'pi pi-users',
         url: '/users',
         visible: this.isCurrentUserAdmin()
       },
       {
-        label: 'Change password',
+        label: this.translate.instant('menu.passwordChange'),
         icon: 'pi pi-pencil',
         url: '/password-edit'
       },
       {
-        label: 'Exit',
+        label: this.translate.instant('menu.exit'),
         icon: 'pi pi-sign-in',
         url: "/login"
       }
     ]
   }
+
 
   isCurrentUserAdmin(): boolean {
     this.isAdmin = false;

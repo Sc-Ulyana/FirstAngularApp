@@ -1,36 +1,33 @@
 <app-header></app-header>
 <form *ngIf="user" #addUserForm="ngForm" (ngSubmit)="addUserForm.valid && onSubmit(addUserForm)" novalidate>
-  <h1>Add user</h1>
+  <h1>{{'title.userAdd'|translate}}</h1>
   <div>
     <div class="p-float-label">
       <input #name="ngModel" id="name" type="text" pInputText [(ngModel)]="user.name" name="name" required>
-      <label for="name">
-        Name
-      </label>
+      <label for="name">{{'input.name'|translate}}</label>
     </div>
     <div class="input-invalid"
          *ngIf="name.invalid && (name.dirty || name.touched) || (name.errors && addUserForm.submitted)">
-      <small *ngIf="name.errors?.['required']" class="p-error block error-text">Name is required</small>
+      <small *ngIf="name.errors?.['required']" class="p-error block error-text">{{'validation.required.name'|translate}}</small>
     </div>
   </div>
   <div>
     <div class="p-float-label">
       <input #login="ngModel" id="login" type="text" pInputText [(ngModel)]="user.login" name="login" required
-             minlength="6">
-      <label for="login">Login</label>
+             minlength="5">
+      <label for="login">{{'input.login'|translate}}</label>
     </div>
     <div class="input-invalid"
          *ngIf="login.invalid && (login.dirty || login.touched) || (login.errors && addUserForm.submitted)">
-      <small *ngIf="login.errors?.required" class="p-error error-text ">Login is required</small>
-      <small *ngIf="login.errors?.minlength" class="p-error error-text"> Name must be at least 6 characters
-        long.</small>
+      <small *ngIf="login.errors?.required" class="p-error error-text ">{{'validation.required.login'|translate}}</small>
+      <small *ngIf="login.errors?.minlength" class="p-error error-text">{{'validation.length.login'|translate}}</small>
     </div>
   </div>
   <div>
     <div class="p-float-label">
       <input #password="ngModel" id="password" pInputText pPassword [(ngModel)]="user.password"
              name="password" [type]="showPassword ? 'text' : 'password'" minlength="5" required>
-      <label for="password">Password</label>
+      <label for="password">{{'input.password'|translate}}</label>
       <i class="pi pi-eye-slash icon"
          (click)="showPassword = !showPassword"
          [class.hide]="showPassword">
@@ -42,32 +39,31 @@
     </div>
     <div class="input-invalid"
          *ngIf="password.invalid && (password.dirty || password.touched) || (password.errors && addUserForm.submitted)">
-      <small *ngIf="password.errors?.required" class="p-error error-text ">Password is required</small>
-      <small *ngIf="password.errors?.minlength" class="p-error error-text">Password should be at least 5 symbols
-        length</small>
+      <small *ngIf="password.errors?.required" class="p-error error-text ">{{'validation.required.password'|translate}}</small>
+      <small *ngIf="password.errors?.minlength" class="p-error error-text">{{'validation.length.password'|translate}}</small>
     </div>
   </div>
   <div>
     <div class="p-float-label">
       <input #email="ngModel" id="email" type="text" pInputText [(ngModel)]="user.email" name="email" email="true"
              required>
-      <label for="email">Email</label>
+      <label for="email">{{'input.email'|translate}}</label>
     </div>
     <div class="input-invalid"
          *ngIf="email.invalid && (email.dirty || email.touched) || (email.errors && addUserForm.submitted)">
-      <small *ngIf="email.errors?.required" class="p-error error-text">Email is required</small>
-      <small *ngIf="email.errors?.email" class="p-error error-text">Enter your email address</small>
+      <small *ngIf="email.errors?.required" class="p-error error-text">{{'validation.required.email'|translate}}</small>
+      <small *ngIf="email.errors?.email" class="p-error error-text">{{'validation.other.email'|translate}}</small>
     </div>
   </div>
   <div>
     <div class="p-float-label">
       <p-inputNumber #salary="ngModel" inputStyleClass="style" id="salary" mode="currency" currency="USD" locale="en-US"
                      [(ngModel)]="user.salary" name="salary" [required]="true"></p-inputNumber>
-      <label for="salary">Salary</label>
+      <label for="salary">{{'input.salary'|translate}}</label>
     </div>
     <div class="input-invalid"
          *ngIf="salary.invalid && (salary.dirty || salary.touched) || (salary.errors && addUserForm.submitted)">
-      <small *ngIf="salary.errors?.required" class="p-error error-text">Salary is required</small>
+      <small *ngIf="salary.errors?.required" class="p-error error-text">{{'validation.required.salary'|translate}}</small>
       <small *ngIf="salary.errors?.min" class="p-error error-text">Minimal salary is 1000</small>
     </div>
   </div>
@@ -77,16 +73,16 @@
                   [style]="{'width':'100%'}"
                   id="dob" dateFormat="dd-mm-yy" inputId="dateformat" [(ngModel)]="user.dateOfBirth" name="date"
                   [required]="true"></p-calendar>
-      <label for="dob">Date of birth</label>
+      <label for="dob">{{'input.date'|translate}}</label>
     </div>
     <div class="input-invalid"
          *ngIf="date.invalid && (date.dirty || date.touched) || (date.errors && addUserForm.submitted)">
-      <small *ngIf="date.errors?.required" class="p-error error-text ">Date is required</small>
+      <small *ngIf="date.errors?.required" class="p-error error-text ">{{'validation.required.date'|translate}}</small>
     </div>
   </div>
   <div>
     <div>
-      <label>Choose user roles: </label>
+      <label>{{'input.roles'|translate}}</label>
     </div>
     <div *ngFor="let role of allRoles" class="p-field-checkbox">
       <p-checkbox [required]="true"
@@ -98,9 +94,9 @@
       <label [for]="role.name">{{role.name}}</label>
     </div>
   </div>
-  <button [ngStyle]="{backgroundColor:'#078d07'}" type="submit" icon="pi pi-check" pButton pRipple label="Save"
+  <button [ngStyle]="{backgroundColor:'#078d07'}" type="submit" icon="pi pi-check" pButton pRipple label="{{'button.save'|translate}}"
           class="p-button-rounded p-button-success"></button>
-  <button pButton pRipple type="button" icon="pi pi-times" label="Cancel"
+  <button pButton pRipple type="button" icon="pi pi-times" label="{{'button.cancel'|translate}}"
           class="p-button-rounded p-button-danger" routerLink="/users"></button>
 </form>
 <app-footer></app-footer>
