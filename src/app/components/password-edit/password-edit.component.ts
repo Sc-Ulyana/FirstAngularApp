@@ -24,6 +24,7 @@ export class PasswordEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   onSubmit(): void {

@@ -4,6 +4,7 @@ import {User} from "../../domain/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../service/user.service";
 import {NotificationService} from "../../service/notification.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-user-delete',
@@ -12,10 +13,18 @@ import {NotificationService} from "../../service/notification.service";
 })
 export class UserDeleteComponent implements OnInit {
   user: User;
+  private messageF: string;
+  private messageS: string;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private userService: UserService,
-              private router: Router, private noteService: NotificationService) {
-    this.titleService.setTitle("Delete User")
+              private router: Router, private noteService: NotificationService, private translate: TranslateService) {
+    this.titleService.setTitle("Delete User");
+    this.translate.get('messages.deleteUserF').subscribe((text: string) => {
+      this.messageF = text;
+    });
+    this.translate.get('messages.deleteUserS').subscribe((text: string) => {
+      this.messageS = text;
+    });
   }
 
   ngOnInit(): void {
@@ -30,7 +39,7 @@ export class UserDeleteComponent implements OnInit {
   deleteUser(): void {
     const id = parseInt(this.route.snapshot.queryParamMap.get('userToDelete')!, 10);
     this.userService.deleteUser(id).subscribe(user => {
-      this.noteService.success( "User " + `${this.user.login}` + " was deleted");
+      this.noteService.success( this.messageF + `${this.user.login}` + this.messageS);
       this.user = user
     });
     this.router.navigateByUrl("/users");

@@ -4,8 +4,8 @@
       Users App
     </div>
     <div style="float: right; margin-top: 5px">
-      <button type="button" class="round-button en"></button>
-      <button type="button" class="round-button ru"></button>
+      <button type="button" class="round-button en" (click)="langChange('en')"></button>
+      <button type="button" class="round-button ru" (click)="langChange('ru')"></button>
       <button [ngStyle]="{backgroundColor:'#078d07'}" pButton pRipple type="button" icon="pi pi-sign-in"
               class="p-button-lg p-button-rounded p-button-success" (click)="clearLocalStorage()"
               routerLink="/login"></button>

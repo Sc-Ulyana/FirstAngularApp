@@ -4,6 +4,7 @@ import {NgForm} from "@angular/forms";
 import {UserService} from "../../service/user.service";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../service/notification.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,8 @@ export class LoginComponent implements OnInit {
   login: string;
   password: string;
   showPassword: boolean;
+  private incorrect: string;
+  private success: string;
 
   isLoginFailed = false
   isLoggedIn = false
@@ -24,12 +27,23 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private titleService: Title, private userService: UserService, private router: Router,
-              private noteService: NotificationService) {
-    this.titleService.setTitle("Log In")
+              private noteService: NotificationService, private translate: TranslateService) {
+    this.titleService.setTitle("Log In");
+    this.translate.get('messages.incorrect').subscribe((text: string) => {
+      this.incorrect = text;
+    });
+    this.translate.get('messages.success').subscribe((text: string) => {
+      this.success = text;
+    });
   }
 
   ngOnInit(): void {
   }
+
+  langChange(lang: string) {
+    this.translate.use(lang);
+  }
+
 
   onSubmit() {
     const {login, password} = this.form;
@@ -40,14 +54,13 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("currentUserLogin", login);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.noteService.success('Registration successful', true);
-        this.router.navigate(['/welcome']);
+        this.noteService.success(this.success);
+        this.router.navigateByUrl('/welcome');
       },
       err => {
-      this.noteService.error("Username or password is incorrect")
-        console.log('login failed');
-        console.log(localStorage.getItem('token'));
+        this.noteService.error(this.incorrect)
         this.isLoginFailed = true;
       })
+
   }
 }

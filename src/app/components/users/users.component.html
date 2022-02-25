@@ -22,13 +22,13 @@
   <ng-template pTemplate="body" let-user>
     <tr>
       <td>{{user.id}}</td>
-      <td><a href="/user-edit?userToEdit={{user.id}}">{{user.name}}</a></td>
+      <td><a [routerLink]="['/user-edit']" [queryParams]="{userToEdit: user.id}">{{user.name}}</a></td>
       <td>{{user.login}}</td>
       <td>{{user.email}}</td>
       <td>{{user.dateOfBirth|date:'dd-MM-yyyy'}}</td>
       <td>{{user.salary}}</td>
       <td><div *ngFor="let role of user.roles">{{role.name}}</div></td>
-      <td><a href="/user-delete?userToDelete={{user.id}}">
+      <td><a [routerLink]="['/user-delete']" [queryParams]="{userToDelete: user.id}">
         <button pButton pRipple type="button" icon="pi pi-user-minus" class="p-button-rounded p-button-danger"></button>
       </a></td>
     </tr>

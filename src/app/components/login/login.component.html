@@ -1,3 +1,7 @@
+<div style="float: right">
+  <button type="button" class="round-button en" (click)="langChange('en')"></button>
+  <button type="button" class="round-button ru" (click)="langChange('ru')"></button>
+</div>
 <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && onSubmit()" novalidate>
   <h1>{{'title.login'|translate}}</h1>
   <div>

@@ -33,6 +33,7 @@ import {UserAddComponent} from './components/user-add/user-add.component';
 import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 import {NotificationComponent} from './components/notification/notification.component';
+import { LoginValidatorDirective } from './dir/login-validator.directive';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {NotificationComponent} from './components/notification/notification.comp
     PasswordEditComponent,
     HeaderComponent,
     FooterComponent,
-    NotificationComponent
+    NotificationComponent,
+    LoginValidatorDirective
   ],
   imports: [
     AppRoutingModule,

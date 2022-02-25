@@ -4,7 +4,7 @@ import {UserService} from "../../service/user.service";
 import {User} from "../../domain/user";
 import {Role} from "../../domain/role";
 import {Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
+import {FormControl, NgForm, Validators} from "@angular/forms";
 import {NotificationService} from "../../service/notification.service";
 
 @Component({
