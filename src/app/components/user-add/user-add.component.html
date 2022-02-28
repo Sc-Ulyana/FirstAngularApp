@@ -14,13 +14,14 @@
   <div>
     <div class="p-float-label">
       <input #login="ngModel" id="login" type="text" pInputText [(ngModel)]="user.login" name="login" required
-             minlength="5">
+            minlength="5" loginValidator>
       <label for="login">{{'input.login'|translate}}</label>
     </div>
     <div class="input-invalid"
          *ngIf="login.invalid && (login.dirty || login.touched) || (login.errors && addUserForm.submitted)">
       <small *ngIf="login.errors?.required" class="p-error error-text ">{{'validation.required.login'|translate}}</small>
       <small *ngIf="login.errors?.minlength" class="p-error error-text">{{'validation.length.login'|translate}}</small>
+      <small *ngIf="login.hasError('loginValidator')"  class="p-error error-text">{{'validation.other.taken'|translate}}</small>
     </div>
   </div>
   <div>
@@ -58,13 +59,13 @@
   <div>
     <div class="p-float-label">
       <p-inputNumber #salary="ngModel" inputStyleClass="style" id="salary" mode="currency" currency="USD" locale="en-US"
-                     [(ngModel)]="user.salary" name="salary" [required]="true"></p-inputNumber>
+                     [(ngModel)]="user.salary" name="salary" salaryValidator [required]="true"></p-inputNumber>
       <label for="salary">{{'input.salary'|translate}}</label>
     </div>
     <div class="input-invalid"
          *ngIf="salary.invalid && (salary.dirty || salary.touched) || (salary.errors && addUserForm.submitted)">
       <small *ngIf="salary.errors?.required" class="p-error error-text">{{'validation.required.salary'|translate}}</small>
-      <small *ngIf="salary.errors?.min" class="p-error error-text">Minimal salary is 1000</small>
+      <small *ngIf="salary.hasError('salaryValidator')" class="p-error error-text">{{'validation.other.salary'|translate}}</small>
     </div>
   </div>
   <div>

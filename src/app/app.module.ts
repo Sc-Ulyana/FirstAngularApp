@@ -33,7 +33,8 @@ import {UserAddComponent} from './components/user-add/user-add.component';
 import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 import {NotificationComponent} from './components/notification/notification.component';
-import { LoginValidatorDirective } from './dir/login-validator.directive';
+import { LoginValidatorDirective } from './validators/login-validator.directive';
+import { SalaryValidatorDirective } from './validators/salary-validator.directive';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { LoginValidatorDirective } from './dir/login-validator.directive';
     HeaderComponent,
     FooterComponent,
     NotificationComponent,
-    LoginValidatorDirective
+    LoginValidatorDirective,
+    SalaryValidatorDirective
   ],
   imports: [
     AppRoutingModule,

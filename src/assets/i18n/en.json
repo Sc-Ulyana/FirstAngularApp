@@ -57,7 +57,9 @@
     },
     "other": {
       "coincide": "Passwords doesn't coincide",
-      "email": "Invalid address"
+      "email": "Invalid address",
+      "taken": "Login is taken",
+      "salary": "Salary should be in diapason 1000-12000"
     }
   },
   "messages": {

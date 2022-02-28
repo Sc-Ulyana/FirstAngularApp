@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {UserService} from "../../service/user.service";
 import {User} from "../../domain/user";
@@ -19,7 +19,6 @@ export class UserAddComponent implements OnInit {
   message: string;
   user: User = new User(0, '', '', '', '', undefined, undefined, []);
   allRoles: Role[];
-
   form: any = {
     login: null,
     password: null,
